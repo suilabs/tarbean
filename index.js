@@ -7,7 +7,6 @@ var serve = serveStatic('public', {'index': ['index.html', 'index.htm']});
 
 // Create server
 var server = http.createServer(function onRequest (req, res) {
-  console.log(req);
   serve(req, res, finalhandler(req, res))
 });
 
