@@ -2,6 +2,10 @@ version: '3'
 services:
   static-server:
     build: .
+    environment:
+      - VIRTUAL_HOST=static.suilabs.com
+      - LETSENCRYPT_HOST=static.suilabs.com
+      - LETSENCRYPT_EMAIL=borja.arias.upc@gmail.com
     ports:
       - "3001:3000"
     volumes:
