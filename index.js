@@ -1,14 +1,30 @@
-var finalhandler = require('finalhandler');
-var http = require('http');
-var serveStatic = require('serve-static');
+const express = require('express');
+const busboy = require('connect-busboy');
+const cors = require('cors');
 
-// Serve up public/ftp folder
-var serve = serveStatic('public', {'index': ['index.html', 'index.htm']});
+const Utils = require('./utils');
 
-// Create server
-var server = http.createServer(function onRequest (req, res) {
-  serve(req, res, finalhandler(req, res))
+const app = express();
+
+app.use(cors());
+app.use(busboy());
+app.post('/images/:project', (req, res) => {
+	const projectName = req.params.project;
+	req.pipe(req.busboy);
+	req.busboy.on('file', function (fieldname, file, filename) {
+		res.setHeader('Content-Type', 'application/json');
+		Utils.saveFile(projectName, filename, file)
+			.then((url) => {
+				res.send(JSON.stringify({url}));
+			})
+			.catch((err) => {
+				console.log(err);
+				res.status(500);
+				res.send(JSON.stringify({error: err}));
+			});
+	});
 });
 
-// Listen
-server.listen(process.env.PORT || 3000);
+app.use(express.static('public'));
+
+app.listen(process.env.PORT || 3000);
