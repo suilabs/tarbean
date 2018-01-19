@@ -29,4 +29,5 @@ pipelines:
           script:
             - npm install
             - npm test
-            - echo "I should have deployed"
+            - cd scripts
+            - ./updateRepo.sh
