@@ -17,12 +17,16 @@ pipelines:
   branches:
     feature:
       - step:
-        script:
-          - npm install
-          - npm test
+          caches:
+            - node
+          script:
+            - npm install
+            - npm test
     master:
       - step:
-        script:
-          - npm install
-          - npm test
-          - echo "I should have deployed"
+          caches:
+            - node
+          script:
+            - npm install
+            - npm test
+            - echo "I should have deployed"
