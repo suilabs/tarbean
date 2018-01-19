@@ -11,5 +11,18 @@ pipelines:
         caches:
           - node
         script: # Modify the commands below to build your repository.
+          - ls test/*
           - npm install
           - npm test
+  branches:
+    feature:
+      - step:
+        script:
+          - npm install
+          - npm test
+    master:
+      - step:
+        script:
+          - npm install
+          - npm test
+          - echo "I should have deployed"
