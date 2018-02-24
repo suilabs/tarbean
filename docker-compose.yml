@@ -1,6 +1,6 @@
-version: '2'
+version: '3'
 services:
-  static-server:
+  server:
     build: .
     environment:
       - VIRTUAL_HOST=static.suilabs.com
@@ -10,3 +10,13 @@ services:
       - "3001:3000"
     volumes:
       - ./public:/usr/src/app/public
+  test:
+    build:
+      context: .
+      dockerfile: ./test/Dockerfile
+
+
+networks:
+  default:
+    external:
+      name: webplatform_suilabs
