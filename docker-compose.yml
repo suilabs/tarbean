@@ -2,9 +2,10 @@ version: '3'
 services:
   server:
     build: .
+    container_name: tarbean
     environment:
-      - VIRTUAL_HOST=static.suilabs.com
-      - LETSENCRYPT_HOST=static.suilabs.com
+      - VIRTUAL_HOST=tarbean.suilabs.com:3001
+      - LETSENCRYPT_HOST=tarbean.suilabs.com
       - LETSENCRYPT_EMAIL=borja.arias.upc@gmail.com
     ports:
       - "3001:3000"
