@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc --reporter html --reporter text mocha --timeout=3000",
     "docker-test": "",
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/suilabs/static-server#readme",
   "dependencies": {
+    "aws-sdk": "^2.318.0",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",

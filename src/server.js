@@ -1,6 +1,7 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const S3 = require('./S3Service');
 
 const Utils = require('./utils');
 
@@ -13,6 +14,15 @@ const Utils = require('./utils');
  * @return {http.Server}
  */
 module.exports = function (options) {
+  const s3 = new S3(
+    {
+      S3_REGION: 'eu-west-3',
+      S3_BUCKET: 'suilabs'
+    },
+    {
+      s3AccessKey: 'AKIAIO3OZJGKE3EHW6RA',
+      s3SecretKey: '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',
+    });
   const app = express();
   const port = options.port || 3000;
   const basePath = options.basePath || __dirname;
@@ -43,6 +53,19 @@ module.exports = function (options) {
           res.status(500);
           res.send(JSON.stringify({error: err}));
         });
+    }
+  });
+
+  app.post('/upload/s3', async (req, res) => {
+    const image = req.files.file;
+    try {
+      const s3Resp = await s3.uploadFile(image.name, image.data, image.mimetype);
+      res.json({
+        name: image.name,
+        url: s3Resp.Location,
+      });
+    } catch (err) {
+      res.status(500).send(err);
     }
   });
 
