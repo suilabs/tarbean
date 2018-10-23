@@ -15,13 +15,6 @@ pipelines:
           - npm install
           - npm test
   branches:
-    feature:
-      - step:
-          caches:
-            - node
-          script:
-            - npm install
-            - npm test
     master:
       - step:
           caches:
