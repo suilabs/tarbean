@@ -1,9 +1,7 @@
-const crypto = require('crypto');
-const path = require('path');
 const aws = require('aws-sdk');
 
 const fileParams = (filename, contentType) => ({
-  filename: crypto.randomBytes(16).toString('hex') + path.extname(filename),
+  filename: filename,
   contentType: contentType || '',
 });
 
