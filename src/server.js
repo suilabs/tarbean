@@ -20,8 +20,8 @@ module.exports = function (options) {
       S3_BUCKET: 'suilabs'
     },
     {
-      s3AccessKey: '***REMOVED***',
-      s3SecretKey: '***REMOVED***',
+      s3AccessKey: 'AKIAIO3OZJGKE3EHW6RA',
+      s3SecretKey: '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',
     });
   const app = express();
   const port = options.port || 3000;

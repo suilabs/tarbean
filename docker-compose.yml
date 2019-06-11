@@ -9,11 +9,6 @@ services:
       - LETSENCRYPT_EMAIL=borja.arias.upc@gmail.com
     volumes:
       - ./public:/usr/src/app/public
-  test:
-    build:
-      context: .
-      dockerfile: ./test/Dockerfile
-
 
 networks:
   default:
