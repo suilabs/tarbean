@@ -30,6 +30,7 @@ class S3Service {
         Body: base64Data,
         ACL: 'public-read',
         ContentType: file.contentType,
+        CacheControl: 'max-age=2592000',
       };
 
       s3.upload(params, (error, data) => {
