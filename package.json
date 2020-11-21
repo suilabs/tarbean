@@ -4,7 +4,6 @@
   "description": "Serve static file within Suilabs",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter html --reporter text mocha --timeout=3000",
     "start": "node src/index.js"
   },
   "repository": {
@@ -20,7 +19,7 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "express-fileupload": "git+https://github.com/ShakMR/express-fileupload.git#handle-file-limit",
+    "express-fileupload": "^1.2.0",
     "node-fs": "^0.1.7"
   },
   "devDependencies": {

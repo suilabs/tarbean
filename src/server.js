@@ -1,6 +1,8 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+
+const config = require('./config');
 const S3 = require('./S3Service');
 
 const Utils = require('./utils');
@@ -14,19 +16,30 @@ const Utils = require('./utils');
  * @return {http.Server}
  */
 module.exports = function (options) {
+  const {
+    SERVER_PORT: port,
+    S3_REGION,
+    S3_BUCKET,
+    secrets: {
+      s3AccessKey,
+      s3SecretKey,
+    },
+    files: {
+      PATH: basePath,
+      SIZE_LIMIT: fileSize
+    }
+  } = config;
   const s3 = new S3(
     {
-      S3_REGION: 'eu-west-3',
-      S3_BUCKET: 'suilabs'
+      S3_REGION,
+      S3_BUCKET
     },
     {
-      s3AccessKey: 'AKIAIO3OZJGKE3EHW6RA',
-      s3SecretKey: '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',
+      s3AccessKey,
+      s3SecretKey
     });
+  
   const app = express();
-  const port = options.port || 3000;
-  const basePath = options.basePath || __dirname;
-  const fileSize = options.fileSize || 6 * 1024 * 1024;
 
   app.use(cors());
   app.use(fileUpload({
