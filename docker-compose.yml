@@ -7,6 +7,8 @@ services:
       - VIRTUAL_HOST=tarbean.suilabs.com,static.suilabs.com
       - LETSENCRYPT_HOST=tarbean.suilabs.com,static.suilabs.com
       - LETSENCRYPT_EMAIL=borja.arias.upc@gmail.com
+      - S3_ACCESS_KEY=${LC_S3_ACCESS_KEY}
+      - S3_SECRET_KEY=${LC_S3_SECRET_KEY}
     volumes:
       - ./public:/usr/src/app/public
 

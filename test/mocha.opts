@@ -1,5 +1,0 @@
---require babel-register
---require ./test/configure.js
---reporter spec
---recursive
---ui bdd
