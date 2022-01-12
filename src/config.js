@@ -11,5 +11,13 @@ module.exports = {
   files: {
     PATH: env.FILES_PATH || __dirname,
     SIZE_LIMIT: env.FILES_SIZE_LIMIT || 6 * 1024 * 1024,
+  },
+  image_service: {
+    cuts: [
+      {
+        name: 'thumbnail',
+        size: 300,
+      }
+    ]
   }
 };

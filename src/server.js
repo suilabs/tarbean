@@ -6,6 +6,7 @@ const config = require('./config');
 const S3 = require('./S3Service');
 
 const Utils = require('./utils');
+const ImageService = require('./ImageService');
 
 /**
  * Starts a new express static server
@@ -27,7 +28,8 @@ module.exports = function (options) {
     files: {
       PATH: basePath,
       SIZE_LIMIT: fileSize
-    }
+    },
+    image_service
   } = config;
   const s3 = new S3(
     {
@@ -38,6 +40,8 @@ module.exports = function (options) {
       s3AccessKey,
       s3SecretKey
     });
+
+  const imageService = new ImageService(image_service)
   
   const app = express();
 
@@ -82,7 +86,23 @@ module.exports = function (options) {
     }
   });
 
+  app.post('/upload/image/s3', async (req, res) => {
+    const image = req.files.file;
+    try {
+      const images = await imageService.generateImages(image)
+      for (const image of images) {
+        const s3Response = await s3.uploadFile(image.name, image.data, image.mimetype);
+        image.url = s3Response.url;
+      }
+      res.json(images)
+    } catch (e) {
+      res.status(500).send(e);
+    }
+  })
+
   app.use(express.static('public'));
 
-  return app.listen(port);
+  return app.listen(port, () => {
+    console.log('Tarbean listening on port', port)
+  });
 };

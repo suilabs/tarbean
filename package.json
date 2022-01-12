@@ -20,7 +20,9 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-fileupload": "^1.2.0",
-    "node-fs": "^0.1.7"
+    "image-size": "^1.0.1",
+    "node-fs": "^0.1.7",
+    "sharp": "^0.29.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
