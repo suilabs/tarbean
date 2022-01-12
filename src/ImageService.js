@@ -28,7 +28,7 @@ class ImageService {
         resizedImage = await sharp(image.data).resize({ height: size, withoutEnlargement: true }).toBuffer();
       }
 
-      console.log('Generated image', originalName, name, 'with size', resizedImage.size)
+      console.log('Generated image', originalName, name, 'with size', resizedImage.toString('base64').length)
       images.push({
         name: `${originalName}-${name}`,
         data: resizedImage.toString('base64'),
