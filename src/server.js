@@ -90,11 +90,16 @@ module.exports = function (options) {
     const image = req.files.file;
     try {
       const images = await imageService.generateImages(image)
+      const s3Images = []
       for (const image of images) {
         const s3Response = await s3.uploadFile(image.name, image.data, image.mimetype);
-        image.url = s3Response.url;
+        console.log(s3Response)
+        s3Images.push({
+          url: s3Response.Location,
+          ...image,
+        });
       }
-      res.json(images)
+      res.json(s3Images)
     } catch (e) {
       res.status(500).send(e);
     }
