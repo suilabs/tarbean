@@ -6,13 +6,15 @@ version: 2
 jobs:
   release:
     docker:
-      - image: instrumentisto/rsync-ssh
+      - image: circleci/node:lts
     steps:
       - checkout
       - attach_workspace:
           at: .
       - deploy:
           command: |
+            sudo apt update
+            sudo apt install -y rsync
             cd scripts
             sh updateRepo.sh
 workflows:
