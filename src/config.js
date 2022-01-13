@@ -17,7 +17,11 @@ module.exports = {
       {
         name: 'thumbnail',
         size: 300,
+      },
+      {
+        name: 'small',
+        size: 600,
       }
-    ]
+    ],
   }
 };
