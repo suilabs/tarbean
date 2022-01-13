@@ -10,12 +10,11 @@ class ImageService {
     const { width, height } = sizeOf(new Buffer(image.data, 'base64'));
     const bigSide = width > height ? 'w' : 'h';
 
-    const originalName = image.name.replace(/(\.[^.]+)$/, '');
-
     const images = [
       {
-        name: originalName,
-        data: image.data.toString('base64'),
+        name: image.name,
+        data: image.data,
+        base64: image.data.toString('base64'),
         mimetype: image.mimetype
       },
     ];
@@ -28,10 +27,11 @@ class ImageService {
         resizedImage = await sharp(image.data).resize({ height: size, withoutEnlargement: true }).toBuffer();
       }
 
-      console.log('Generated image', originalName, name, 'with size', resizedImage.size)
+      console.log('Generated image', image.name, name, 'with size', resizedImage.toString('base64').length)
       images.push({
-        name: `${originalName}-${name}`,
-        data: resizedImage.toString('base64'),
+        name: `${name}/${image.name}`,
+        data: resizedImage,
+        base64: resizedImage.toString('base64'),
         mimetype: image.mimetype
       });
     }
