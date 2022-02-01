@@ -93,13 +93,18 @@ module.exports = function (options) {
       const s3Images = []
       for (const image of images) {
         const s3Response = await s3.uploadFile(image.name, image.data, image.mimetype);
-        console.log(s3Response)
+        const { name, mimetype } = image
         s3Images.push({
           url: s3Response.Location,
-          ...image,
+          name,
+          mimetype,
         });
       }
-      res.json(s3Images)
+      res.json({
+        preview: images
+          .map(({name, base64}) => ({name, base64}))
+          .find(({ name }) => name.includes(config.image_service.preview)),
+        images: s3Images })
     } catch (e) {
       res.status(500).send(e);
     }

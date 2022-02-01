@@ -23,5 +23,6 @@ module.exports = {
         size: 600,
       }
     ],
+    preview: 'thumbnail'
   }
 };
