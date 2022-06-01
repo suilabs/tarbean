@@ -26,7 +26,7 @@
     "express-fileupload": "^1.2.0",
     "image-size": "^1.0.1",
     "node-fs": "^0.1.7",
-    "sharp": "^0.29.3"
+    "sharp": "^0.30.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
